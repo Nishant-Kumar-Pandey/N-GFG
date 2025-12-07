@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Movie Finder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: #fff;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .search-box {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      gap: 10px;
+    }
+    input {
+      flex: 1;
+      padding: 12px 15px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+    }
+    button {
+      padding: 12px 20px;
+      background: #4b6cff;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #results {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+      width: 100%;
+      max-width: 900px;
+    }
+    .card {
+      background: #1c1c1c;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      transition: transform .2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+    .card-title {
+      padding: 10px;
+      font-size: .95rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎬 Movie Finder</h1>
+
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Search for any movie..." />
+    <button id="btn">Search</button>
+  </div>
+
+  <div id="results"></div>
+
+  <script>
+    const input = document.querySelector('#search');
+    const button = document.querySelector('#btn');
+    const results = document.querySelector('#results');
+
+    async function searchMovies() {
+      const query = input.value.trim();
+      if (!query) return;
+
+      const url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=thewdb`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      results.innerHTML = '';
+
+      if (!data.Search) {
+        results.innerHTML = `<p>No movies found.</p>`;
+        return;
+      }
+
+      data.Search.forEach(movie => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450?text=No+Image'}" />
+          <div class="card-title">${movie.Title} (${movie.Year})</div>
+        `;
+        results.appendChild(card);
+      });
+    }
+
+    button.addEventListener('click', searchMovies);
+    input.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') searchMovies();
+    });
+  </script>
+
+</body>
+</html>

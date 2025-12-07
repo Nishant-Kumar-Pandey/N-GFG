@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .gp{
+        border: 2px solid red;
+        padding: 10px;
+        margin: 10px;
+    }
+    .p{
+        border: 2px solid green;
+        padding: 10px;
+        margin: 10px;
+    }
+    .c{
+        border: 2px solid blue;
+        padding: 10px;
+        margin: 10px;
+    }
+</style>
+<body>
+    <div class="gp">
+        grandparent
+        <div class="p">
+            parent
+            <div class="c">
+                child
+            </div>
+        </div>
+    </div>
+    <script>
+        let grandparent = document.querySeclector('.gp');
+        let parent = document.querySelector('.p');
+        let child = document.querySelector('.c');
+        grandparent.addEventListener('click', ()=>{
+            console.log('grandparent clicked');
+        });
+        parent.addEventListener('click', ()=>{
+            console.log('parent clicked');
+        
+        });
+        child.addEventListener('click', ()=>{
+            console.log('child clicked');
+        });
+    </script>
+</body>
+</html>
+ 

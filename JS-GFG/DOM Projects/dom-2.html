@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Shape Generator</title>
+
+<style>
+    /* ------- Minimalist Reset ------- */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: #f5f5f5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px;
+        color: #333;
+    }
+
+    /* ------- Input + Dropdown + Button Styling ------- */
+    input[type="color"],
+    input[type="number"],
+    select {
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        outline: none;
+        font-size: 15px;
+        margin-right: 8px;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+        border-color: #333;
+    }
+
+    button {
+        padding: 10px 18px;
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.2s;
+        font-size: 15px;
+    }
+
+    button:hover {
+        background: #555;
+    }
+
+    /* ------- Shape Container ------- */
+    .container {
+        width: 90%;
+        max-width: 900px;
+        min-height: 350px;
+        background: #ffffff;
+        margin-top: 30px;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* ------- Shapes ------- */
+    .circle,
+    .square,
+    .rectangle {
+        transition: transform 0.2s ease;
+    }
+
+    .circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+
+    .square {
+        width: 100px;
+        height: 100px;
+    }
+
+    .rectangle {
+        width: 150px;
+        height: 100px;
+    }
+
+    /* Hover animation */
+    .circle:hover,
+    .square:hover,
+    .rectangle:hover {
+        transform: scale(1.1);
+    }
+</style>
+
+</head>
+
+<body>
+
+    <div class="controls">
+
+        <!-- NEW DROPDOWN HERE -->
+        <select id="shapename">
+            <option value="" disabled selected>Select a shape</option>
+            <option value="circle">Circle</option>
+            <option value="square">Square</option>
+            <option value="rectangle">Rectangle</option>
+        </select>
+
+        <input type="color" id="shapecolor">
+        <input type="number" id="quantity" min="1" placeholder="How many?">
+        <button id="generate">Generate</button>
+    </div>
+
+    <div class="container"></div>
+
+<script>
+    const generateBtn = document.querySelector("#generate");
+
+    generateBtn.addEventListener("click", () => {
+
+        const shapeName = document.querySelector("#shapename").value;
+        const shapeColor = document.querySelector("#shapecolor").value;
+        const quantity = parseInt(document.querySelector("#quantity").value);
+        const container = document.querySelector(".container");
+
+        container.innerHTML = ""; // Clear previous shapes
+
+        if (shapeName === "") {
+            alert("Please select a shape from the dropdown.");
+            return;
+        }
+
+        for (let i = 0; i < quantity; i++) {
+            const shape = document.createElement("div");
+            shape.classList.add(shapeName);
+            shape.style.backgroundColor = shapeColor;
+            container.appendChild(shape);
+        }
+    });
+</script>
+
+</body>
+</html>

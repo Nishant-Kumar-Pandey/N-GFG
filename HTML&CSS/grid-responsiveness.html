@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+      .container{
+        display: flex;
+            display: grid;
+            background-color: lightgreen;
+            grid-template-columns: repeat(3, 1fr);
+            gap:1rem;
+        }
+        .item{
+            padding: 1rem;
+            background-color: orange;
+        }
+
+
+        @media(max-width: 400px){
+            .container{
+                grid-template-columns: repeat(1, 1fr);
+                gap:1rem;
+            }
+            
+        }
+
+        @media(min-width: 401px) and (max-width: 800px){
+            .container{
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+        }
+
+
+</style>
+
+<body>
+    <div class="container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+    </div>
+</body>
+</html>
