@@ -12,7 +12,7 @@ console.log("SERVER FILE RUNNING");
 
 mongoose
 .connect(
-    "mongodb+srv://nishantpandey66:356980@cluster0.osfzww1.mongodb.net/nishant"
+    "mongodb+srv://nishantpandey66:*******@cluster0.osfzww1.mongodb.net/nishant"
 )
 .then(() => {
     console.log("conected to db");
